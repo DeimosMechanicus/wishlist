@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.martins.wishlist.models.Item;
+import com.martins.wishlist.models.Items;
 import com.martins.wishlist.services.WishService;
 
 @RestController
 @RequestMapping(
 		  value = "/api/wish/", 
 		  produces = "application/json", 
-		  method = {RequestMethod.GET, RequestMethod.PUT})
+		  method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE})
 public class WishController {
 	
 	@Autowired
@@ -30,6 +31,13 @@ public class WishController {
 		
 	}
 	
+	@GetMapping("/addList")
+	public List<Item> addWish(@RequestBody Items items) {
+
+		return  wService.addMultipleWishItems(items);
+		
+	}
+	
 	@GetMapping("/update")
 	public List<Item> updateWish(@RequestBody Item item) {
 		
@@ -38,16 +46,16 @@ public class WishController {
 	}
 	
 	@GetMapping("/delete")
-	public void deleteWish(@RequestParam String id) {
+	public boolean deleteWish(@RequestParam(required = false) String name,@RequestParam(required = false) String id) {
 		
-		wService.deleteWishItem(id);
+		return wService.deleteWishItem(name,id);
 		
 	}
 	
 	@GetMapping("/get")
-	public Item getWish(@RequestParam String name) {
+	public Item getWish(@RequestParam String nameOrId) {
 		
-		return wService.getSingleWishItem(name);
+		return wService.getSingleWishItem(nameOrId);
 		
 	}
 	

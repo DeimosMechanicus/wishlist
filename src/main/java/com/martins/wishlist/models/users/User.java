@@ -7,6 +7,14 @@ public class User {
 	String name;
 	String email;
 	
+	public User(String type, Long id, String name, String email) {
+		super();
+		this.type = type;
+		this.id = id;
+		this.name = name;
+		this.email = email;
+	}
+	
 	public String getType() {
 		return type;
 	}

@@ -10,11 +10,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import com.martins.wishlist.models.Item;
 import com.martins.wishlist.mongo.ItemRepository;
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoDatabase;
 
 @SpringBootApplication
 @EnableMongoRepositories
@@ -23,9 +18,16 @@ public class WishlistApplication implements CommandLineRunner {
 	@Autowired
 	ItemRepository ItemRepo;
 
+	/**
+	 * No longer used, commented in all functionality.
+	 * Was used for testing Mongo DB
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		/*
-		 * Hardcoded connection test String comString =
+		 * Debugging driver version, for some reason driver version did not match to Cloud connection for specific driver
+		 * Hardcoded connection test String
+		 * comString =
 		 * "mongodb+srv://martinsWishlist:wishlist2022@cluster0.ital5.mongodb.net/test?authSource=admin&replicaSet=atlas-b3ntkg-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 		 * String conString =
 		 * "mongodb+srv://martinsWishlist:wishlist2022@cluster0.ital5.mongodb.net/wishlists?retryWrites=true&w=majority";
@@ -77,7 +79,7 @@ public class WishlistApplication implements CommandLineRunner {
 	// 3. Get name and quantity of a all items of a particular category
 	public void getItemsByAchived(Boolean achived) {
 		System.out.println("Getting items for the achived " + achived);
-		List<Item> list = ItemRepo.findAllAchived(achived);
+		List<Item> list = ItemRepo.findAllAchieved(achived);
 
 		list.forEach(item -> System.out.println("Name: " + item.getName() + ", Achived: " + item.isAchived()));
 	}
